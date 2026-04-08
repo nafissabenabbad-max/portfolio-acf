@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nafissa — Applied Computing in Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0e0b0b;--surface:#161010;--bordeaux:#8b1a2e;--bordeaux-light:#b52a43;
+  --bordeaux-muted:rgba(139,26,46,0.15);--cream:#f0e8dc;--cream-dim:rgba(240,232,220,0.55);
+  --border:rgba(240,232,220,0.08);--serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 3rem;border-bottom:1px solid var(--border);background:rgba(14,11,11,0.92);backdrop-filter:blur(14px)}
+.nav-name{font-family:var(--serif);font-size:1.2rem;color:var(--cream)}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--bordeaux-light)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 5rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 40%, rgba(139,26,46,0.2) 0%, transparent 70%)}
+.hero-content{position:relative;z-index:1;max-width:780px}
+.hero-eyebrow{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--bordeaux-light);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem}
+.hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--bordeaux)}
+.hero h1{font-family:var(--serif);font-size:clamp(3rem,7vw,6rem);font-weight:400;line-height:1.05;margin-bottom:1.5rem}
+.hero h1 em{font-style:italic;color:var(--bordeaux-light)}
+.hero-sub{font-size:1rem;color:var(--cream-dim);max-width:480px;margin-bottom:2.5rem;line-height:1.75}
+.hero-tags{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:3rem}
+.tag{border:1px solid var(--border);color:var(--cream-dim);padding:0.3rem 0.8rem;font-size:0.72rem;letter-spacing:0.08em;border-radius:2px}
+.cta-row{display:flex;gap:1.25rem;align-items:center}
+.btn-primary{background:var(--bordeaux);color:var(--cream);padding:0.75rem 2rem;text-decoration:none;font-size:0.82rem;letter-spacing:0.08em;border-radius:2px;transition:background 0.2s}
+.btn-primary:hover{background:var(--bordeaux-light)}
+.btn-ghost{color:var(--cream-dim);font-size:0.82rem;letter-spacing:0.08em;text-decoration:none;border-bottom:1px solid transparent;transition:all 0.2s}
+.btn-ghost:hover{color:var(--cream);border-color:var(--bordeaux)}
+.divider{height:1px;background:var(--border);margin:0 3rem}
+section{padding:6rem 3rem;max-width:1100px;margin:0 auto}
+.section-header{display:flex;align-items:baseline;gap:1.25rem;margin-bottom:3.5rem}
+.section-num{font-family:var(--serif);font-size:0.85rem;color:var(--bordeaux);font-style:italic}
+.section-title{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400}
+.about-grid{display:grid;grid-template-columns:1.2fr 0.8fr;gap:5rem;align-items:start}
+.about-text p{color:var(--cream-dim);margin-bottom:1.25rem;font-size:0.97rem;line-height:1.85}
+.about-text strong{color:var(--cream);font-weight:500}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border)}
+.stat{background:var(--surface);padding:1.5rem;transition:background 0.2s}
+.stat:hover{background:var(--bordeaux-muted)}
+.stat-n{font-family:var(--serif);font-size:2.8rem;font-weight:600;color:var(--bordeaux-light);line-height:1}
+.stat-l{font-size:0.75rem;color:var(--cream-dim);margin-top:0.4rem;line-height:1.5}
+.skills-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.skill-block{background:var(--surface);padding:2rem;transition:background 0.3s}
+.skill-block:hover{background:var(--bordeaux-muted)}
+.skill-block h3{font-family:var(--serif);font-size:1.1rem;font-weight:400;margin-bottom:0.75rem}
+.skill-block p{font-size:0.82rem;color:var(--cream-dim);line-height:1.7}
+.skill-note{font-size:0.72rem;color:var(--bordeaux-light);margin-top:0.6rem}
+.projects-stack{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border)}
+.project-card{background:var(--surface);display:grid;grid-template-columns:80px 1fr auto;align-items:start;padding:2.5rem;gap:2rem;transition:background 0.3s;text-decoration:none;color:inherit}
+.project-card:hover{background:var(--bordeaux-muted)}
+.proj-num{font-family:var(--serif);font-size:3rem;font-weight:600;color:rgba(139,26,46,0.35);line-height:1}
+.proj-tag{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--bordeaux-light);margin-bottom:0.5rem}
+.proj-body h3{font-family:var(--serif);font-size:1.4rem;font-weight:400;margin-bottom:0.6rem}
+.proj-body p{font-size:0.85rem;color:var(--cream-dim);line-height:1.75;max-width:560px}
+.proj-stack{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:1rem}
+.proj-tech{font-size:0.68rem;letter-spacing:0.06em;border:1px solid var(--border);color:var(--cream-dim);padding:0.2rem 0.6rem;border-radius:2px}
+.proj-arrow{font-size:1.2rem;color:var(--bordeaux);align-self:center;opacity:0;transition:all 0.2s}
+.project-card:hover .proj-arrow{opacity:1;transform:translateX(4px)}
+.motiv-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.motiv-block{padding:2rem;border-left:2px solid var(--bordeaux);background:var(--bordeaux-muted)}
+.motiv-block h3{font-family:var(--serif);font-size:1rem;font-weight:400;margin-bottom:0.75rem;color:var(--bordeaux-light)}
+.motiv-block p{font-size:0.87rem;color:var(--cream-dim);line-height:1.8}
+.motiv-quote{grid-column:span 2;margin-top:1rem}
+.motiv-quote blockquote{font-family:var(--serif);font-size:1.4rem;font-style:italic;color:var(--cream-dim);line-height:1.6}
+.contact-inner{max-width:540px}
+.contact-inner h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:400;margin-bottom:1rem;line-height:1.15}
+.contact-inner h2 em{font-style:italic;color:var(--bordeaux-light)}
+.contact-inner p{color:var(--cream-dim);margin-bottom:2rem;font-size:0.95rem}
+.contact-row{display:flex;gap:1rem;flex-wrap:wrap}
+footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify-content:space-between;font-size:0.75rem;color:var(--cream-dim);letter-spacing:0.05em}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-content>*{animation:fadeUp 0.8s ease both}
+.hero-content>*:nth-child(1){animation-delay:0.1s}
+.hero-content>*:nth-child(2){animation-delay:0.25s}
+.hero-content>*:nth-child(3){animation-delay:0.4s}
+.hero-content>*:nth-child(4){animation-delay:0.5s}
+.hero-content>*:nth-child(5){animation-delay:0.6s}
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}.nav-links{gap:1rem}
+  section{padding:4rem 1.5rem}
+  .about-grid,.motiv-grid{grid-template-columns:1fr}
+  .skills-row{grid-template-columns:1fr}
+  .project-card{grid-template-columns:1fr;gap:1rem}
+  .divider{margin:0 1.5rem}.hero{padding:0 1.5rem 4rem}
+  footer{flex-direction:column;gap:0.5rem}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-name">Nafissa</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#motivation">Why ACF</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Portfolio, Applied Computing in Finance</div>
+    <h1>Finance,<br><em>data,</em><br>and real-world<br>impact.</h1>
+    <p class="hero-sub">International student from Morocco at NTU, building at the intersection of AI and financial markets.</p>
+    <div class="hero-tags">
+      <span class="tag">Python</span>
+      <span class="tag">Google Gemini</span>
+      <span class="tag">Financial Data</span>
+      <span class="tag">Geopolitics and Markets</span>
+      <span class="tag">Halal Finance</span>
+      <span class="tag">Product Thinking</span>
+    </div>
+    <div class="cta-row">
+      <a href="#projects" class="btn-primary">View projects</a>
+      <a href="#motivation" class="btn-ghost">Why this program →</a>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01.</span>
+    <h2 class="section-title">About me</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm an international student from Morocco, currently in my first year of <strong>Aerospace Engineering and Economics at NTU</strong>. Aerospace taught me to visualise complex systems before you can simplify them. Economics taught me how markets behave, how decisions get made under uncertainty.</p>
+      <p>Both together gave me a certain flexibility in how I think, and that's what drew me toward Applied Computing in Finance.</p>
+      <p>This year, participating in the <strong>NTU Women in Tech Ideathon</strong> gave me a clearer sense of where I actually want to go. Working on a solution around women's career re-entry, combining a shared transition fund with a structured re-entry pathway, I realised I was naturally doing three things at once: breaking down the problem, thinking about who would actually use this and how, and pushing for something concrete rather than just a concept.</p>
+      <p>Talking to students already in the ACF program confirmed it. What drew me wasn't just the technical side, it was the idea of being the person who sits between the data and the decision. That's what a product manager does. And that's what I want to build toward.</p>
+      <p>My current program gave me strong foundations, but I've reached a point where I know the direction I want to take, and Applied Computing in Finance is where that direction leads.</p>
+    </div>
+    <div>
+      <div class="stats">
+        <div class="stat"><div class="stat-n">NTU</div><div class="stat-l">Aerospace Engineering, Economics</div></div>
+        <div class="stat"><div class="stat-n">3</div><div class="stat-l">Projects built for this portfolio</div></div>
+        <div class="stat"><div class="stat-n">AI</div><div class="stat-l">Gemini agents via UWS Fintech</div></div>
+        <div class="stat"><div class="stat-n">SGP</div><div class="stat-l">Based in Singapore</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">02.</span>
+    <h2 class="section-title">Skills</h2>
+  </div>
+  <div class="skills-row">
+    <div class="skill-block">
+      <h3>Python</h3>
+      <p>Variables, loops, functions, working with data. Learned through NTU's MA1008 module, extended with external libraries for data analysis and visualisation.</p>
+      <div class="skill-note">Course: MA1008, Introduction to Computational Thinking</div>
+    </div>
+    <div class="skill-block">
+      <h3>AI agents with Gemini</h3>
+      <p>Building custom AI assistants using the Gem framework and PARTS methodology, persistent, structured, finance-focused.</p>
+      <div class="skill-note">Via: United Women Singapore Fintech Program</div>
+    </div>
+    <div class="skill-block">
+      <h3>Finance fundamentals</h3>
+      <p>Self-taught foundations: equities, ETFs, volatility, and how macro events move markets. Including halal finance frameworks and Shariah-compliant screening.</p>
+      <div class="skill-note">Self-directed, UWS Fintech coursework</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">03.</span>
+    <h2 class="section-title">Projects</h2>
+  </div>
+  <div class="projects-stack">
+
+    <a href="https://github.com/nafissabenabbad-max/portfolio-acf/blob/main/dashboard%20(1).py" target="_blank" class="project-card">
+      <div class="proj-num">01</div>
+      <div class="proj-body">
+        <div class="proj-tag">Python, Streamlit, Data Visualization</div>
+        <h3>Stock Market Dashboard</h3>
+        <p>Built using Python skills from MA1008, extended with external libraries. The dashboard tracks major tech stocks (Nvidia, Apple, Amazon, Microsoft) and ETFs, including Shariah-compliant alternatives (SPUS, HLAL), with live data from Yahoo Finance. Displays indexed performance, rolling volatility, and summary statistics.</p>
+        <div class="proj-stack">
+          <span class="proj-tech">Python</span>
+          <span class="proj-tech">Streamlit</span>
+          <span class="proj-tech">Plotly</span>
+          <span class="proj-tech">Yahoo Finance API</span>
+          <span class="proj-tech">Pandas</span>
+        </div>
+      </div>
+      <div class="proj-arrow">→</div>
+    </a>
+
+    <a href="https://www.youtube.com/watch?v=VOTRE_LIEN_ICI" target="_blank" class="project-card">
+      <div class="proj-num">02</div>
+      <div class="proj-body">
+        <div class="proj-tag">AI, Google Gemini, PARTS Framework</div>
+        <h3>AI Financial Analyst, Gemini Gem</h3>
+        <p>A custom AI assistant built using the Gem framework learned through the United Women Singapore Fintech Program. Designed with the PARTS methodology (Persona, Action, Recipient, Theme, Structure), it analyses any company and returns a structured report with momentum, margins, risks, and a Buy/Hold/Sell recommendation with macro context. Watch the demo to see it analyse Tesla and Apple in real time.</p>
+        <div class="proj-stack">
+          <span class="proj-tech">Google Gemini</span>
+          <span class="proj-tech">PARTS Framework</span>
+          <span class="proj-tech">Prompt Engineering</span>
+          <span class="proj-tech">Fintech</span>
+        </div>
+      </div>
+      <div class="proj-arrow">→</div>
+    </a>
+
+    <a href="https://github.com/nafissabenabbad-max/portfolio-acf/blob/main/grabpay_dashboard%20(1).py" target="_blank" class="project-card">
+      <div class="proj-num">03</div>
+      <div class="proj-body">
+        <div class="proj-tag">Python, Streamlit, Product Thinking, Geopolitics</div>
+        <h3>GrabPay Crisis Dashboard</h3>
+        <p>A PM-oriented project: if I were a product manager at GrabPay during the Iran conflict of 2026, what would I build to inform and protect users? The dashboard uses real oil price and SGD/USD data to show how the conflict affects everyday costs in Singapore, transport, food, and exchange rates, and presents four concrete product decisions: crisis alerts, rate lock, spending insights, and smart budgeting.</p>
+        <div class="proj-stack">
+          <span class="proj-tech">Python</span>
+          <span class="proj-tech">Streamlit</span>
+          <span class="proj-tech">Plotly</span>
+          <span class="proj-tech">Yahoo Finance API</span>
+          <span class="proj-tech">Product Management</span>
+        </div>
+      </div>
+      <div class="proj-arrow">→</div>
+    </a>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="motivation">
+  <div class="section-header">
+    <span class="section-num">04.</span>
+    <h2 class="section-title">Why Applied Computing in Finance</h2>
+  </div>
+  <div class="motiv-grid">
+    <div class="motiv-block">
+      <h3>From aerospace to finance, not a detour but a pattern</h3>
+      <p>Aerospace engineering is fundamentally about constraint optimisation under uncertainty. So is portfolio management. So is financial product design. The switch isn't a pivot away from my training, it's applying the same rigorous systems thinking to a different domain.</p>
+    </div>
+    <div class="motiv-block">
+      <h3>The product manager thread</h3>
+      <p>What draws me to Applied Computing in Finance specifically is the product layer. I don't just want to build models, I want to build tools that real users trust with real decisions. That's how these three projects were built: ship something, see it work, understand why.</p>
+    </div>
+    <div class="motiv-block">
+      <h3>Singapore as a lens on global finance</h3>
+      <p>Being based in Singapore means operating in one of the most concentrated fintech ecosystems in the world. Singapore sits at the centre of Asia's financial flows, making it one of the most exposed hubs when geopolitical risk rises. That's not abstract to me, it's the context I'm living and studying in.</p>
+    </div>
+    <div class="motiv-block">
+      <h3>Halal finance as an underserved problem space</h3>
+      <p>Islamic finance is one of the fastest-growing sectors in global finance, yet it remains massively underserved in terms of data tools, screening infrastructure, and product design. As someone who grew up Muslim and takes that seriously, I see this not just as a market opportunity but as a space where better technology can genuinely serve people who currently have very few options. A PM who understands both the technical and the cultural side of this problem is rare. That's something I can be.</p>
+    </div>
+
+  </div>
+</section>
+
+
+
+<footer>
+  <span>Nafissa, Singapore, 2026</span>
+  <span>Applied Computing in Fina
